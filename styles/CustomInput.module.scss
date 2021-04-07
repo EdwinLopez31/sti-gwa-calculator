@@ -1,0 +1,17 @@
+.inputContainer {
+	@apply relative flex items-center w-11/12 mx-auto;
+
+	.inputField {
+		@apply block w-full shadow-sm p-1 py-0.5 border-b-2 border-transparent rounded-md focus:outline-none focus:border-solid text-sm focus:border-yellow-300;
+
+		&:placeholder-shown {
+			& + .inputLabel {
+				@apply absolute opacity-0 cursor-text origin-left text-sm transform left-1 duration-300;
+			}
+		}
+	}
+
+	.inputLabel{
+		@apply absolute origin-left transform left-1 duration-300 scale-[.85] -translate-y-7 text-gray-600;
+	}
+}
