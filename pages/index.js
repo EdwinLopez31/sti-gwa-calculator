@@ -48,7 +48,11 @@ export default function Home() {
 
 	const handleAddSubject = e => {
 		e.preventDefault()
-		setIsClicked(prevState => !prevState)
+		inputFields.qt1Grade &&
+			inputFields.qt2Grade &&
+			inputFields.qt3Grade &&
+			inputFields.qt4Grade &&
+			setIsClicked(prevState => !prevState)
 		const tempRawGrade = +(
 			+inputFields.qt1Grade * 0.2 +
 			+inputFields.qt2Grade * 0.2 +
@@ -65,6 +69,7 @@ export default function Home() {
 			creditPointsPerCourse: +tempFinGrade * +inputFields.units,
 		})
 	}
+
 	useEffect(() => {
 		inputFields.creditPointsPerCourse &&
 			setSubjects([
@@ -90,19 +95,18 @@ export default function Home() {
 		setGWA((TCP / TUN).toFixed(2))
 	}
 
-	const handleRemoveSubject = _name => {
-		setSubjects(prevState => prevState.filter(subject => subject.name !== _name))
+	const handleRemoveSubject = _idx => {
+		setSubjects(prevState => prevState.filter(subject => subjects.indexOf(subject) !== _idx))
 	}
 
-	const handleChange = (e) => {
-		
+	const handleChange = e => {
 		const type = e.target.type
-		const value = e.target.value;
+		const value = e.target.value
 		const name = e.target.name
 
 		setInputFields(prevState => ({
 			...prevState,
-			[name]: type === "number" ? parseFloat(value) : value
+			[name]: type === 'number' ? value.length > 0 && parseFloat(value) : value,
 		}))
 	}
 
@@ -122,9 +126,7 @@ export default function Home() {
 						name="name"
 						placeholder="Subject Name"
 						value={inputFields.name}
-						onChange={e =>
-							handleChange(e)
-						}
+						onChange={e => handleChange(e)}
 					/>
 					<CustomInput
 						type="number"
@@ -132,9 +134,7 @@ export default function Home() {
 						name="units"
 						placeholder="Units"
 						value={inputFields.units}
-						onChange={e =>
-							handleChange(e)
-						}
+						onChange={e => handleChange(e)}
 					/>
 					<CustomInput
 						type="number"
@@ -142,9 +142,7 @@ export default function Home() {
 						name="qt1Grade"
 						placeholder="Prelim Grade"
 						value={inputFields.qt1Grade}
-						onChange={e =>
-							handleChange(e)
-						}
+						onChange={e => handleChange(e)}
 					/>
 					<CustomInput
 						type="number"
@@ -152,9 +150,7 @@ export default function Home() {
 						name="qt2Grade"
 						placeholder="Midterm Grade"
 						value={inputFields.qt2Grade}
-						onChange={e =>
-							handleChange(e)
-						}
+						onChange={e => handleChange(e)}
 					/>
 					<CustomInput
 						type="number"
@@ -162,9 +158,7 @@ export default function Home() {
 						name="qt3Grade"
 						placeholder="Prefinal Grade"
 						value={inputFields.qt3Grade}
-						onChange={e =>
-							handleChange(e)
-						}
+						onChange={e => handleChange(e)}
 					/>
 					<CustomInput
 						type="number"
@@ -172,9 +166,7 @@ export default function Home() {
 						name="qt4Grade"
 						placeholder="Finals Grade"
 						value={inputFields.qt4Grade}
-						onChange={e =>
-							handleChange(e)
-						}
+						onChange={e => handleChange(e)}
 					/>
 					<button
 						onClick={e => handleAddSubject(e)}
@@ -184,56 +176,55 @@ export default function Home() {
 					</button>
 				</form>
 			</div>
-			
-				<div className="grid grid-cols-4 p-2 gap-y-3">
-					{subjects.map((subject, idx) => {
-						return (
-							<div
-								key={subject.name}
-								onClick={e => handleRemoveSubject(subject.name)}
-								className="grid w-full grid-cols-4 col-span-4 p-1 shadow bg-opacity-90 rounded-lg bg-blue-500 gap-y-2.5 cursor-pointer"
-							>
-								<div className="col-span-4 font-medium text-center uppercase">
-									{subject.name}
-								</div>
-								<div className="w-full col-span-1 text-center">
-									<h2 className="text-xs">Prelims</h2>
-									<p>{subject.qt1Grade}</p>
-								</div>
-								<div className="w-full col-span-1 text-center">
-									<h2 className="text-xs">Midterm</h2>
-									<p>{subject.qt2Grade}</p>
-								</div>
-								<div className="w-full col-span-1 text-center">
-									<h2 className="text-xs">Pre-finals</h2>
-									<p>{subject.qt3Grade}</p>
-								</div>
-								<div className="w-full col-span-1 text-center">
-									<h2 className="text-xs">Finals</h2>
-									<p>{subject.qt4Grade}</p>
-								</div>
-								<div className="w-full col-span-2 text-center">
-									<h2 className="text-xs">Raw Grade</h2>
-									<p>{subject.rawGrade}</p>
-								</div>
-								<div className="w-full col-span-2 text-center">
-									<h2 className="text-xs">Final Grade</h2>
-									<p>{subject.finalGrade}</p>
-								</div>
+
+			<div className="grid grid-cols-4 p-2 gap-y-3">
+				{subjects.map((subject, idx) => {
+					return (
+						<div
+							key={subject.name + idx}
+							onClick={e => handleRemoveSubject(idx)}
+							className="grid w-full grid-cols-4 col-span-4 p-1 shadow bg-opacity-90 rounded-lg bg-blue-500 gap-y-2.5 cursor-pointer"
+						>
+							<div className="col-span-4 font-medium text-center uppercase">
+								{subject.name}
 							</div>
-						)
-					})}
-					{subjects.length > 0 &&
+							<div className="w-full col-span-1 text-center">
+								<h2 className="text-xs">Prelims</h2>
+								<p>{subject.qt1Grade}</p>
+							</div>
+							<div className="w-full col-span-1 text-center">
+								<h2 className="text-xs">Midterm</h2>
+								<p>{subject.qt2Grade}</p>
+							</div>
+							<div className="w-full col-span-1 text-center">
+								<h2 className="text-xs">Pre-finals</h2>
+								<p>{subject.qt3Grade}</p>
+							</div>
+							<div className="w-full col-span-1 text-center">
+								<h2 className="text-xs">Finals</h2>
+								<p>{subject.qt4Grade}</p>
+							</div>
+							<div className="w-full col-span-2 text-center">
+								<h2 className="text-xs">Raw Grade</h2>
+								<p>{subject.rawGrade}</p>
+							</div>
+							<div className="w-full col-span-2 text-center">
+								<h2 className="text-xs">Final Grade</h2>
+								<p>{subject.finalGrade}</p>
+							</div>
+						</div>
+					)
+				})}
+				{subjects.length > 0 && (
 					<button
 						onClick={handleCalculateGWA}
 						className="px-2 mx-4 col-span-4 rounded-md py-0.5 self-end text-sm border border-black focus:outline-none"
 					>
 						Calculate GWA
 					</button>
-					}
-					{`GWA: ${GWA}`}
-				</div>
-
+				)}
+				{`GWA: ${GWA}`}
+			</div>
 		</div>
 	)
 }
