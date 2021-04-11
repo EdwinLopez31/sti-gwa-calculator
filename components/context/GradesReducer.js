@@ -19,6 +19,11 @@ const GradesReducer = (state, action) => {
 					subject => state.subjects.indexOf(subject) !== action.payload,
 				),
 			}
+		case ACTIONS.REMOVE_ALL:
+			return {
+				...state,
+				subjects: [],
+			}
 
 		default:
 	}

@@ -2,8 +2,10 @@
 	@apply relative flex items-center w-11/12 mx-auto;
 
 	.inputField {
-		@apply block w-full shadow-sm p-1 py-0.5 border-b-2 border-transparent rounded-md focus:outline-none focus:border-solid text-sm focus:border-yellow-300;
-
+		@apply block w-full shadow p-1 py-0.5 border-b-2 border-transparent placeholder-gray-400 rounded-md focus:outline-none focus:border-solid text-sm focus:border-yellow-300;
+		&::placeholder{
+			@apply text-xs;
+		}
 		&:placeholder-shown {
 			& + .inputLabel {
 				@apply absolute opacity-0 cursor-text origin-left text-sm transform left-1 duration-300;
@@ -12,6 +14,6 @@
 	}
 
 	.inputLabel{
-		@apply absolute origin-left transform left-1 duration-300 scale-[.85] -translate-y-7 text-gray-600;
+		@apply absolute origin-left transform left-1 duration-300 scale-[.85] translate-y-[-1.6rem] font-semibold text-[#0d61a5];
 	}
 }

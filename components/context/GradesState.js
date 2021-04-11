@@ -5,6 +5,17 @@ import GradesActions from './GradesActions'
 
 const GradesState = props => {
 	const initialState = {
+		inputFields: {
+			name: '',
+			units: '',
+			qt1Grade: '',
+			qt2Grade: '',
+			qt3Grade: '',
+			qt4Grade: '',
+			rawGrade: '',
+			finalGrade: '',
+			creditPointsPerCourse: '',
+		},
 		subjects: [],
 		GWA: '',
 	}
@@ -40,6 +51,12 @@ const GradesState = props => {
 		})
 	}
 
+	const removeAll = () => {
+		dispatch({
+			type: GradesActions.REMOVE_ALL,
+		})
+	}
+
 	return (
 		<GradesContext.Provider
 			value={{
@@ -48,6 +65,7 @@ const GradesState = props => {
 				addSubject,
 				calculateGWA,
 				deleteSubject,
+				removeAll,
 			}}
 		>
 			{props.children}
