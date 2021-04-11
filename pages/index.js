@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
 import CustomInput from '../components/CustomInput/CustomInput'
+import GradesContext from '../components/context/GradesContext'
+import * as GradesUtility from '../components/context/GradesUtility'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
-export default function Home() {
+const Home = () => {
 	const [inputFields, setInputFields] = useState({
 		name: '',
 		units: '',
@@ -17,34 +19,10 @@ export default function Home() {
 		creditPointsPerCourse: '',
 	})
 
-	const [subjects, setSubjects] = useState([])
 	const [isClicked, setIsClicked] = useState([false])
-	const [GWA, setGWA] = useState(0)
-
-	const getEquivalentGrade = tempRawGrade => {
-		switch (true) {
-			case tempRawGrade >= 97.5:
-				return `1.00`
-			case tempRawGrade >= 94.5 && tempRawGrade < 97.5:
-				return `1.25`
-			case tempRawGrade >= 91.5 && tempRawGrade < 94.5:
-				return `1.50`
-			case tempRawGrade >= 88.5 && tempRawGrade < 91.5:
-				return `1.75`
-			case tempRawGrade >= 85.5 && tempRawGrade < 98.5:
-				return `2.00`
-			case tempRawGrade >= 82.5 && tempRawGrade < 85.5:
-				return `2.25`
-			case tempRawGrade >= 79.5 && tempRawGrade < 82.5:
-				return `2.50`
-			case tempRawGrade >= 76.5 && tempRawGrade < 79.5:
-				return `2.75`
-			case tempRawGrade >= 74.5 && tempRawGrade < 76.5:
-				return `3.00`
-			case tempRawGrade < 74.5:
-				return `5.00`
-		}
-	}
+	const { addSubject, calculateGWA, deleteSubject, subjects, GWA } = useContext(
+		GradesContext,
+	)
 
 	const handleAddSubject = e => {
 		e.preventDefault()
@@ -60,7 +38,7 @@ export default function Home() {
 			+inputFields.qt4Grade * 0.4
 		).toFixed(2)
 
-		const tempFinGrade = getEquivalentGrade(tempRawGrade)
+		const tempFinGrade = GradesUtility.getEquivalentGrade(tempRawGrade)
 
 		setInputFields({
 			...inputFields,
@@ -71,33 +49,8 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		inputFields.creditPointsPerCourse &&
-			setSubjects([
-				...subjects,
-				{
-					...inputFields,
-				},
-			])
+		inputFields.creditPointsPerCourse && addSubject({ ...inputFields })
 	}, [isClicked])
-
-	const handleCalculateGWA = () => {
-		//TCP = TOTAL CREDIT POINTS
-		//TUN = TOTAL UNITS TAKEN
-
-		const TUN = subjects.reduce((acc, subject) => {
-			return subject.units + acc
-		}, 0)
-
-		const TCP = subjects.reduce((acc, subject) => {
-			return +subject.creditPointsPerCourse + acc
-		}, 0)
-
-		setGWA((TCP / TUN).toFixed(2))
-	}
-
-	const handleRemoveSubject = _idx => {
-		setSubjects(prevState => prevState.filter(subject => subjects.indexOf(subject) !== _idx))
-	}
 
 	const handleChange = e => {
 		const type = e.target.type
@@ -182,7 +135,7 @@ export default function Home() {
 					return (
 						<div
 							key={subject.name + idx}
-							onClick={e => handleRemoveSubject(idx)}
+							onClick={e => deleteSubject(idx)}
 							className="grid w-full grid-cols-4 col-span-4 p-1 shadow bg-opacity-90 rounded-lg bg-blue-500 gap-y-2.5 cursor-pointer"
 						>
 							<div className="col-span-4 font-medium text-center uppercase">
@@ -217,7 +170,7 @@ export default function Home() {
 				})}
 				{subjects.length > 0 && (
 					<button
-						onClick={handleCalculateGWA}
+						onClick={calculateGWA}
 						className="px-2 mx-4 col-span-4 rounded-md py-0.5 self-end text-sm border border-black focus:outline-none"
 					>
 						Calculate GWA
@@ -228,3 +181,5 @@ export default function Home() {
 		</div>
 	)
 }
+
+export default Home;
