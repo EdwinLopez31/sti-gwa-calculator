@@ -71,10 +71,10 @@ const Home = () => {
 
 	return (
 		<div
-			className={`w-full flex flex-col min-h-screen gap-2.5 p-2 text-sm md:grid md:grid-cols-2 md:items-center md:justify-center ${styles.mainContainer}`}
+			className={`w-full flex flex-col min-h-screen gap-2.5 p-2 text-sm ${styles.mainContainer}`}
 		>
 			<div className="flex flex-col justify-center w-full p-2">
-				<div className="relative mb-4 bg-[#f2f2f2] rounded-md shadow-sm">
+				<div className="relative mb-4 bg-[#f2f2f2] rounded-md shadow-sm lg:w-[56rem] max-w-4xl lg:mx-auto ">
 					<div className="w-full p-4 mb-10 font-medium text-center text-gray-400 shadow ">
 						<h1 className="uppercase ">Input raw grade</h1>
 						<p className="">(e.g. 95.50, 82.33)</p>
@@ -130,7 +130,7 @@ const Home = () => {
 						/>
 						<button
 							onClick={e => handleAddSubject(e)}
-							className="px-2 mx-4 rounded-md bg-[#E6C01D] text-white py-1 self-end text-sm focus:outline-none"
+							className="px-2 mx-4 rounded-md bg-[#f9cb13] text-white py-1 self-end text-sm focus:outline-none"
 						>
 							Add Subject
 						</button>
@@ -138,7 +138,7 @@ const Home = () => {
 				</div>
 			</div>
 
-			<div className="flex flex-col-reverse p-2 overflow-x-hidden gap-y-3">
+			<div className="container flex flex-col-reverse p-2 mx-auto overflow-x-hidden gap-y-3 lg:w-[56rem] max-w-4xl lg:mx-auto">
 				{subjects.map((subject, idx) => {
 					return (
 						<div
@@ -150,35 +150,35 @@ const Home = () => {
 							onClick={e => deleteSubject(idx)}
 							className="grid w-full gap-2 md:grid-cols-8 grid-cols-4  shadow bg-opacity-90 rounded-lg text-white bg-[#08416d] gap-y-2.5 cursor-pointer transform duration-300 hover:-translate-y-0.5 hover:shadow-md focus:shadow-md focus:-translate-y-0.5"
 						>
-							<div className="col-span-4 p-2 mb-4 font-bold text-center text-[#E6C01D] uppercase bg-white bg-opacity-[0.15] md:col-span-8 truncate">
+							<div className="col-span-4 p-2 mb-4 font-bold text-center text-[#f9cb13] uppercase bg-white bg-opacity-[0.15] md:col-span-8 truncate">
 								{subject.name}
 							</div>
-							<div className="flex justify-around w-full col-span-4 px-3 pb-1 md:pb-4 md:pt-0">
+							<div className="flex justify-around w-full col-span-4 px-3 pb-1 md:pb-5 md:pt-0">
 								<div className="text-center">
-									<h2 className="text-xs">Prelims</h2>
+									<h2 className="text-xs mb-0.5">Prelims</h2>
 									<p className="">{subject.qt1Grade}</p>
 								</div>
 								<div className="text-center">
-									<h2 className="text-xs">Midterm</h2>
+									<h2 className="text-xs mb-0.5">Midterm</h2>
 									<p className="">{subject.qt2Grade}</p>
 								</div>
 								<div className="text-center">
-									<h2 className="text-xs">Pre-finals</h2>
+									<h2 className="text-xs mb-0.5">Pre-finals</h2>
 									<p className="">{subject.qt3Grade}</p>
 								</div>
 								<div className="text-center">
-									<h2 className="text-xs">Finals</h2>
+									<h2 className="text-xs mb-0.5">Finals</h2>
 									<p className="">{subject.qt4Grade}</p>
 								</div>
 							</div>
-							<div className="flex justify-around w-full col-span-4 p-3 text-center md:px-3 md:pb-4 md:pt-0">
+							<div className="flex justify-around w-full col-span-4 p-3 text-center md:px-3 md:pb-5 md:pt-0">
 							<div className="">
-								<h2 className="text-xs">Raw Grade</h2>
-								<p className="font-semibold">{subject.rawGrade}</p>
+								<h2 className="text-xs mb-0.5">Raw Grade</h2>
+								<p className="">{subject.rawGrade}</p>
 							</div>
 							<div className="">
-								<h2 className="text-xs">Subject Grade</h2>
-								<p className="font-semibold">{subject.finalGrade}</p>
+								<h2 className="text-xs mb-0.5">Subject Grade</h2>
+								<p className="font-bold">{subject.finalGrade}</p>
 							</div>
 							</div>
 						
@@ -189,19 +189,19 @@ const Home = () => {
 
 			{subjects.length > 0 && (
 				<div
-					className="flex justify-around w-full col-start-2 gap-4 p-6 "
+					className="flex flex-col justify-end lg:w-[56rem] max-w-4xl lg:mx-auto col-start-2 gap-4 p-6"
 				>
-					<button
-						onClick={removeAll}
-						className="px-2 w-full rounded-md bg-[#E6C01D] self-end py-1 text-sm focus:outline-none text-white"
-					>
-						Remove All
-					</button>
-					<button
+									<button
 						onClick={calculateGWA}
-						className="px-2 w-full rounded-md bg-[#E6C01D] self-end py-1 text-sm focus:outline-none text-white"
+						className="px-2 rounded-md bg-[#f9cb13] self-end py-1 font-semibold text-sm focus:outline-none border-2 border-[#08416d] text-[#08416d]"
 					>
 						Calculate GWA
+					</button>
+					<button
+						onClick={removeAll}
+						className="px-2 rounded-md border-2 border-[#e51d1d] self-end font-semibold py-1 text-sm focus:outline-none text-[#e51d1d]"
+					>
+						Remove Subjects
 					</button>
 				</div>
 			)}
