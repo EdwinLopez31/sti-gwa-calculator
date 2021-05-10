@@ -2,22 +2,25 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
 import CustomInput from '../components/CustomInput/CustomInput'
 import GradesContext from '../components/context/GradesContext'
+import Modal from '../components/Modal'
 import * as GradesUtility from '../components/context/GradesUtility'
 
 import { useState, useEffect, useContext, useMemo } from 'react'
 
 const Home = () => {
 	const [inputFields, setInputFields] = useState({
-		name: 'Information Assurance And Technology (Security and Data Privacy and Cybercrime Law)',
-		units: '3',
-		qt1Grade: '100',
-		qt2Grade: '100',
-		qt3Grade: '100',
-		qt4Grade: '100',
+		name:  '',
+		units: '',
+		qt1Grade: '',
+		qt2Grade: '',
+		qt3Grade: '',
+		qt4Grade: '',
 		rawGrade: '',
 		finalGrade: '',
 		creditPointsPerCourse: '',
 	})
+
+	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const [isClicked, setIsClicked] = useState([false])
 	const {
@@ -75,8 +78,8 @@ const Home = () => {
 		>
 			<div className="flex flex-col justify-center w-full p-2">
 				<div className="relative mb-4 bg-[#f2f2f2] rounded-md shadow-sm lg:w-[56rem] max-w-4xl lg:mx-auto ">
-					<div className="w-full p-4 mb-10 font-medium text-center text-gray-400 shadow ">
-						<h1 className="uppercase ">Input raw grade</h1>
+					<div className=" w-full p-4 mb-10 font-medium text-center text-gray-400 shadow">
+						<h1 className=" uppercase">Input raw grade</h1>
 						<p className="">(e.g. 95.50, 82.33)</p>
 					</div>
 					<form className="flex flex-col gap-8 p-4">
@@ -130,7 +133,7 @@ const Home = () => {
 						/>
 						<button
 							onClick={e => handleAddSubject(e)}
-							className="px-2 mx-4 rounded-md bg-[#f9cb13] text-white py-1 self-end text-sm focus:outline-none"
+							className="px-3 mx-4 rounded-md bg-[#f9cb13] text-white py-1 self-start mb-4 text-sm focus:outline-none"
 						>
 							Add Subject
 						</button>
@@ -153,7 +156,7 @@ const Home = () => {
 							<div className="col-span-4 p-2 mb-4 font-bold text-center text-[#f9cb13] uppercase bg-white bg-opacity-[0.15] md:col-span-8 truncate">
 								{subject.name}
 							</div>
-							<div className="flex justify-around w-full col-span-4 px-3 pb-1 md:pb-5 md:pt-0">
+							<div className="md:pb-5 md:pt-0 flex justify-around w-full col-span-4 px-3 pb-1">
 								<div className="text-center">
 									<h2 className="text-xs mb-0.5">Prelims</h2>
 									<p className="">{subject.qt1Grade}</p>
@@ -171,41 +174,69 @@ const Home = () => {
 									<p className="">{subject.qt4Grade}</p>
 								</div>
 							</div>
-							<div className="flex justify-around w-full col-span-4 p-3 text-center md:px-3 md:pb-5 md:pt-0">
-							<div className="">
-								<h2 className="text-xs mb-0.5">Raw Grade</h2>
-								<p className="">{subject.rawGrade}</p>
+							<div className="md:px-3 md:pb-5 md:pt-0 flex justify-around w-full col-span-4 p-3 text-center">
+								<div className="">
+									<h2 className="text-xs mb-0.5">Raw Grade</h2>
+									<p className="">{subject.rawGrade}</p>
+								</div>
+								<div className="">
+									<h2 className="text-xs mb-0.5">Subject Grade</h2>
+									<p className="font-bold">{subject.finalGrade}</p>
+								</div>
 							</div>
-							<div className="">
-								<h2 className="text-xs mb-0.5">Subject Grade</h2>
-								<p className="font-bold">{subject.finalGrade}</p>
-							</div>
-							</div>
-						
 						</div>
 					)
 				})}
 			</div>
 
 			{subjects.length > 0 && (
-				<div
-					className="flex flex-col justify-end lg:w-[56rem] max-w-4xl lg:mx-auto col-start-2 gap-4 p-6"
-				>
-									<button
-						onClick={calculateGWA}
-						className="px-2 rounded-md bg-[#f9cb13] self-end py-1 font-semibold text-sm focus:outline-none border-2 border-[#08416d] text-[#08416d]"
+				<div className="flex flex-col justify-end lg:w-[56rem] max-w-4xl lg:mx-auto col-start-2 gap-4 p-6">
+					<button
+						onClick={e => {
+							calculateGWA(), setIsModalOpen(prevState => !prevState)
+						}}
+						className="px-2 rounded-md bg-[#08416d] self-end py-1 font-semibold text-sm focus:outline-none transition duration-300 shadow text-white hover:text-white hover:bg-[#063456]"
 					>
 						Calculate GWA
 					</button>
 					<button
 						onClick={removeAll}
-						className="px-2 rounded-md border-2 border-[#e51d1d] self-end font-semibold py-1 text-sm focus:outline-none text-[#e51d1d]"
+						className="px-2 rounded-md border border-[#e51d1d] self-end font-semibold py-1 text-sm focus:outline-none hover:bg-[#e51d1d] hover:text-white transition duration-300 shadow text-[#e51d1d]"
 					>
 						Remove Subjects
 					</button>
+					<Modal>
+						<div
+							className={`bg-opacity-40 fixed inset-0 items-center justify-center bg-black ${
+								isModalOpen ? 'flex' : 'hidden'
+							}`}
+						>
+							<div className="bg-[#f2f2f2] w-1/3 p-4">
+								<header className="inset-x-0 top-0 flex justify-end">
+									<button
+										onClick={e => setIsModalOpen(false)}
+										className="focus:outline-none group"
+									>
+										<svg
+											className="group-hover:text-gray-700 w-5 h-5 text-black fill-current"
+											viewBox="0 0 20 20"
+										>
+											<path
+												fillRule="evenodd"
+												d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+												clipRule="evenodd"
+											/>
+										</svg>
+									</button>
+								</header>
+								<main className="flex items-center justify-center font-bold">
+									Your GWA is: {GWA}
+								</main>
+							</div>
+						</div>
+					</Modal>
 				</div>
 			)}
-
 		</div>
 	)
 }
