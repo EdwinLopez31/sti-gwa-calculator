@@ -5,11 +5,12 @@ import GradesContext from '../components/context/GradesContext'
 import Modal from '../components/Modal'
 import * as GradesUtility from '../components/context/GradesUtility'
 
-import { useState, useEffect, useContext, useMemo } from 'react'
+
+import { useState, useEffect, useContext } from 'react'
 
 const Home = () => {
 	const [inputFields, setInputFields] = useState({
-		name:  '',
+		name: '',
 		units: '',
 		qt1Grade: '',
 		qt2Grade: '',
@@ -78,8 +79,8 @@ const Home = () => {
 		>
 			<div className="flex flex-col justify-center w-full p-2">
 				<div className="relative mb-4 bg-[#f2f2f2] rounded-md shadow-sm lg:w-[56rem] max-w-4xl lg:mx-auto ">
-					<div className=" w-full p-4 mb-10 font-medium text-center text-gray-400 shadow">
-						<h1 className=" uppercase">Input raw grade</h1>
+					<div className="w-full p-4 mb-10 font-medium text-center text-gray-400 shadow ">
+						<h1 className="uppercase ">Input raw grade</h1>
 						<p className="">(e.g. 95.50, 82.33)</p>
 					</div>
 					<form className="flex flex-col gap-8 p-4">
@@ -156,7 +157,7 @@ const Home = () => {
 							<div className="col-span-4 p-2 mb-4 font-bold text-center text-[#f9cb13] uppercase bg-white bg-opacity-[0.15] md:col-span-8 truncate">
 								{subject.name}
 							</div>
-							<div className="md:pb-5 md:pt-0 flex justify-around w-full col-span-4 px-3 pb-1">
+							<div className="flex justify-around w-full col-span-4 px-3 pb-1 md:pb-5 md:pt-0">
 								<div className="text-center">
 									<h2 className="text-xs mb-0.5">Prelims</h2>
 									<p className="">{subject.qt1Grade}</p>
@@ -174,7 +175,7 @@ const Home = () => {
 									<p className="">{subject.qt4Grade}</p>
 								</div>
 							</div>
-							<div className="md:px-3 md:pb-5 md:pt-0 flex justify-around w-full col-span-4 p-3 text-center">
+							<div className="flex justify-around w-full col-span-4 p-3 text-center md:px-3 md:pb-5 md:pt-0">
 								<div className="">
 									<h2 className="text-xs mb-0.5">Raw Grade</h2>
 									<p className="">{subject.rawGrade}</p>
@@ -207,18 +208,17 @@ const Home = () => {
 					</button>
 					<Modal>
 						<div
-							className={`bg-opacity-40 fixed inset-0 items-center justify-center bg-black ${
-								isModalOpen ? 'flex' : 'hidden'
-							}`}
+							className={`bg-opacity-40 fixed inset-0 items-center justify-center bg-black ${isModalOpen ? 'flex' : 'hidden'
+								}`}
 						>
-							<div className="bg-[#f2f2f2] w-1/3 p-4">
+							<div className="bg-[#f2f2f2] w-1/3 p-4 rounded-md">
 								<header className="inset-x-0 top-0 flex justify-end">
 									<button
 										onClick={e => setIsModalOpen(false)}
 										className="focus:outline-none group"
 									>
 										<svg
-											className="group-hover:text-gray-700 w-5 h-5 text-black fill-current"
+											className="w-5 h-5 text-black fill-current group-hover:text-gray-700"
 											viewBox="0 0 20 20"
 										>
 											<path
