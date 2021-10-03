@@ -1,5 +1,5 @@
 .inputContainer {
-	@apply relative flex items-center w-11/12;
+	@apply relative flex items-center ;
 
 	.inputField {
 		@apply block w-full shadow px-2 py-3 border-b-2 border-transparent placeholder-gray-400 rounded-md focus:outline-none focus:border-solid text-sm focus:border-yellow-300;
@@ -14,6 +14,6 @@
 	}
 
 	.inputLabel{
-		@apply absolute origin-left transform left-1 duration-300 scale-[.85] translate-y-[-2rem] font-semibold text-[#0d61a5];
+		@apply absolute origin-left transform left-1 duration-300 ;
 	}
 }

@@ -4,8 +4,7 @@ import CustomInput from '../components/CustomInput/CustomInput'
 import GradesContext from '../components/context/GradesContext'
 import Modal from '../components/Modal'
 import * as GradesUtility from '../components/context/GradesUtility'
-import { useState, useEffect, useContext, useCallback } from 'react'
-import { m, LazyMotion, domAnimation } from 'framer-motion'
+import { useState, useEffect, useContext} from 'react'
 
 const Home = () => {
   const [inputFields, setInputFields] = useState({
@@ -168,10 +167,10 @@ const Home = () => {
       </div>
 
       <div className="grid w-full grid-cols-1 col-span-2 grid-rows-6 p-2 overflow-x-hidden gap-x-3 lg:grid-cols-2 gap-y-3 lg:w-full">
-        <LazyMotion features={domAnimation}>
+
           {subjects.map((subject, idx) => {
             return (
-              <m.div
+              <div
                 initial={{ x: '100%', opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.1 }}
@@ -210,10 +209,10 @@ const Home = () => {
                     <p className="font-bold">{subject.finalGrade}</p>
                   </div>
                 </div>
-              </m.div>
+              </div>
             )
           })}
-        </LazyMotion>
+
       </div>
 
       {isModalOpen && (
