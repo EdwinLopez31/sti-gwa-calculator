@@ -5,10 +5,10 @@ const CustomInput = props => {
 		<div className={`${styles.inputContainer} w-11/12`}>
 			<input
 				{...props}
-				className={`${styles.inputField} scale-[.85] translate-y-[-2rem] font-semibold text-[#0d61a5]`}
+				className={`${styles.inputField}  `}
 				required
 			/>
-			<label className={`${styles.inputLabel} `} htmlFor={props.id}>
+			<label className={`${styles.inputLabel} scale-[.85] translate-y-[-2rem] font-semibold text-[#0d61a5] `} htmlFor={props.id}>
 				{props.placeholder}
 			</label>
 		</div>

@@ -4,7 +4,7 @@ import CustomInput from '../components/CustomInput/CustomInput'
 import GradesContext from '../components/context/GradesContext'
 import Modal from '../components/Modal'
 import * as GradesUtility from '../components/context/GradesUtility'
-import { useState, useEffect, useContext} from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 const Home = () => {
   const [inputFields, setInputFields] = useState({
@@ -63,111 +63,110 @@ const Home = () => {
 
   return (
     <div
-      className={`w-full grid xl:grid-cols-3 grid-cols-1 min-h-screen text-sm p-4 gap-x-4 ${styles.mainContainer}`}
+      className={`${styles.mainContainer}`}
     >
       <Head>
         <title>STI GWA Calculator</title>
       </Head>
-
-      <div className="flex flex-col w-full col-span-1 p-2">
-        <div className="relative mb-4 lg:mb-0 bg-[#f2f2f2] bg-opacity-90 backdrop-filter backdrop-blur-sm rounded-md shadow-sm lg:w-full lg:mx-auto transition-[height] duration-200">
-          <div className="w-full p-4 mb-10 font-medium text-center text-gray-500 shadow ">
-            <h1 className="uppercase ">Input raw grade</h1>
-            <p className="">(e.g. 95.50, 82.33)</p>
-            <h1
-              className={`${
-                subjects.length > 0 ? 'opacity-100' : 'opacity-0'
-              } transition-opacity mt-2 uppercase font-bold `}
-            >
-              Click on a subject to remove it from the list
-            </h1>
-          </div>
-          <form
-            onSubmit={(e) => handleAddSubject(e)}
-            className="flex flex-col items-center gap-8 p-4"
-          >
-            <CustomInput
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Subject Name"
-              value={inputFields.name}
-              onChange={(e) => handleChange(e)}
-            />
-            <CustomInput
-              type="number"
-              id="units"
-              name="units"
-              placeholder="Units"
-              value={inputFields.units}
-              onChange={(e) => handleChange(e)}
-            />
-            <CustomInput
-              type="number"
-              id="qt1"
-              name="qt1Grade"
-              placeholder="Prelim Grade"
-              value={inputFields.qt1Grade}
-              onChange={(e) => handleChange(e)}
-            />
-            <CustomInput
-              type="number"
-              id="qt2"
-              name="qt2Grade"
-              placeholder="Midterm Grade"
-              value={inputFields.qt2Grade}
-              onChange={(e) => handleChange(e)}
-            />
-            <CustomInput
-              type="number"
-              id="qt3"
-              name="qt3Grade"
-              placeholder="Prefinal Grade"
-              value={inputFields.qt3Grade}
-              onChange={(e) => handleChange(e)}
-            />
-            <CustomInput
-              type="number"
-              id="qt4"
-              name="qt4Grade"
-              placeholder="Finals Grade"
-              value={inputFields.qt4Grade}
-              onChange={(e) => handleChange(e)}
-            />
-            <div className="flex flex-col items-center justify-center w-full gap-y-4 md:flex-row gap-x-4">
-              {subjects.length > 0 && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    calculateGWA()
-                    setIsModalOpen((prevState) => !prevState)
-                  }}
-                  className="px-3 md:px-4 py-2 rounded-md bg-[#08416d] font-semibold text-sm focus:outline-none transition duration-300 shadow text-white hover:text-white hover:bg-[#052c4b]"
-                >
-                  Calculate GWA
-                </button>
-              )}
-              <button className="px-3 md:px-4 rounded-md bg-[#e9c01c] text-white py-2  text-sm focus:outline-none hover:shadow-sm transition-transform hover:-translate-y-1">
-                Add Subject
-              </button>
-              {subjects.length > 0 && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    removeAll()
-                  }}
-                  className="px-3 md:px-4 py-2 rounded-md ring-2 ring-[#e51d1d] ring-inset font-semibold text-sm focus:outline-none hover:bg-[#e51d1d] hover:text-white transition duration-300 shadow text-[#e51d1d]"
-                >
-                  Remove All Subjects
-                </button>
-              )}
+      <div className="grid w-full min-h-screen grid-cols-1 p-4 text-sm xl:grid-cols-3 gap-x-4">
+        <div className="flex flex-col w-full col-span-1 p-2">
+          <div className="relative mb-4 lg:mb-0 bg-[#f2f2f2] bg-opacity-90 backdrop-filter backdrop-blur-sm rounded-md shadow-sm lg:w-full lg:mx-auto transition-[height] duration-200">
+            <div className="w-full p-4 mb-10 font-medium text-center text-gray-500 shadow ">
+              <h1 className="uppercase ">Input raw grade</h1>
+              <p className="">(e.g. 95.50, 82.33)</p>
+              <h1
+                className={`${
+                  subjects.length > 0 ? 'opacity-100' : 'opacity-0'
+                } transition-opacity mt-2 uppercase font-bold `}
+              >
+                Click on a subject to remove it from the list
+              </h1>
             </div>
-          </form>
+            <form
+              onSubmit={(e) => handleAddSubject(e)}
+              className="flex flex-col items-center gap-8 p-4"
+            >
+              <CustomInput
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Subject Name"
+                value={inputFields.name}
+                onChange={(e) => handleChange(e)}
+              />
+              <CustomInput
+                type="number"
+                id="units"
+                name="units"
+                placeholder="Units"
+                value={inputFields.units}
+                onChange={(e) => handleChange(e)}
+              />
+              <CustomInput
+                type="number"
+                id="qt1"
+                name="qt1Grade"
+                placeholder="Prelim Grade"
+                value={inputFields.qt1Grade}
+                onChange={(e) => handleChange(e)}
+              />
+              <CustomInput
+                type="number"
+                id="qt2"
+                name="qt2Grade"
+                placeholder="Midterm Grade"
+                value={inputFields.qt2Grade}
+                onChange={(e) => handleChange(e)}
+              />
+              <CustomInput
+                type="number"
+                id="qt3"
+                name="qt3Grade"
+                placeholder="Prefinal Grade"
+                value={inputFields.qt3Grade}
+                onChange={(e) => handleChange(e)}
+              />
+              <CustomInput
+                type="number"
+                id="qt4"
+                name="qt4Grade"
+                placeholder="Finals Grade"
+                value={inputFields.qt4Grade}
+                onChange={(e) => handleChange(e)}
+              />
+              <div className="flex flex-col items-center justify-center w-full gap-y-4 md:flex-row gap-x-4">
+                {subjects.length > 0 && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      calculateGWA()
+                      setIsModalOpen((prevState) => !prevState)
+                    }}
+                    className="px-3 md:px-4 py-2 rounded-md bg-[#08416d] font-semibold text-sm focus:outline-none transition duration-300 shadow text-white hover:text-white hover:bg-[#052c4b]"
+                  >
+                    Calculate GWA
+                  </button>
+                )}
+                <button className="px-3 md:px-4 rounded-md bg-[#e9c01c] text-white py-2  text-sm focus:outline-none hover:shadow-sm transition-transform hover:-translate-y-1">
+                  Add Subject
+                </button>
+                {subjects.length > 0 && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      removeAll()
+                    }}
+                    className="px-3 md:px-4 py-2 rounded-md ring-2 ring-[#e51d1d] ring-inset font-semibold text-sm focus:outline-none hover:bg-[#e51d1d] hover:text-white transition duration-300 shadow text-[#e51d1d]"
+                  >
+                    Remove All Subjects
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <div className="grid w-full grid-cols-1 col-span-2 grid-rows-6 p-2 overflow-x-hidden gap-x-3 lg:grid-cols-2 gap-y-3 lg:w-full">
-
+        <div className="grid w-full grid-cols-1 col-span-2 grid-rows-6 p-2 overflow-x-hidden gap-x-3 lg:grid-cols-2 gap-y-3 lg:w-full">
           {subjects.map((subject, idx) => {
             return (
               <div
@@ -208,7 +207,7 @@ const Home = () => {
               </div>
             )
           })}
-
+        </div>
       </div>
 
       {isModalOpen && (
