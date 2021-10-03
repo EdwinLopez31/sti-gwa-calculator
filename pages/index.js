@@ -171,10 +171,6 @@ const Home = () => {
           {subjects.map((subject, idx) => {
             return (
               <div
-                initial={{ x: '100%', opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.1 }}
-                key={subject.name + idx}
                 onClick={(e) => deleteSubject(idx)}
                 className="grid w-full gap-2 md:h-32 h-44 md:grid-cols-8 grid-cols-4 overflow-hidden shadow  ring-white ring-[2px]  rounded-lg text-white bg-[#08416d] gap-y-2.5 cursor-pointer transform duration-300 hover:-translate-y-0.5 hover:shadow-md focus:shadow-md focus:-translate-y-0.5"
               >
