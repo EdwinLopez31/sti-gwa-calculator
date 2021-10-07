@@ -230,7 +230,7 @@ const Home = () => {
       </div>
 
       {isModalOpen && (
-        <Modal>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <header className="flex justify-end w-full h-full p-4 mb-4 bg-gray-300">
             <button
               onClick={(e) => setIsModalOpen(false)}
